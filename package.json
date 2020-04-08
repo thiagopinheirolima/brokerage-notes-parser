@@ -1,0 +1,24 @@
+{
+  "name": "brokerage-notes-parser",
+  "version": "1.0.0",
+  "description": "Parser for brokerage notes from Clear and Rico (XP Group) brokerages",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagopinheirolima/brokerage-notes-parser.git"
+  },
+  "author": "Thiago Pinheiro Lima (github: thiagopinheirolima)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/thiagopinheirolima/brokerage-notes-parser/issues"
+  },
+  "homepage": "https://github.com/thiagopinheirolima/brokerage-notes-parser#readme",
+  "dependencies": {
+    "moment": "^2.24.0",
+    "pdf-parser": "^1.0.5"
+  }
+}
