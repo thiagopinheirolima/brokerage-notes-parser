@@ -10,4 +10,4 @@ Parser for brokerage notes from Clear and Rico (XP Group) brokerages
 
 4- Execute `npm start` to run.
 
-*Output file should be at application directory under name of 'output.json' if you want to use as CSV, change the TO_CSV flag to true!
+*Output file should be at root application's directory under name of 'output.json' if you want to use as CSV, change the `TO_CSV` flag to `true`!*
