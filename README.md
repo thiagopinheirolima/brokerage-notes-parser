@@ -6,7 +6,7 @@ Parser for brokerage notes from Clear and Rico (XP Group) brokerages
 
 2- Execute `npm install`
 
-3- Place your brokerages notes on input directory
+3- Place your brokerages notes inside input directory
 
 4- Execute `npm start`
 
