@@ -9,6 +9,7 @@ const p = require('path');
 const u = require('util');
 const moment = require('moment');
 const tickers = require('./tickers');
+const extras = require('./input/extras');
 const PDF2JSON = u.promisify(require('pdf-parser').pdf2json);
 
 main();
@@ -17,7 +18,9 @@ async function main() {
     const files = getPDFFiles(INPUT_PATH);
     const pages = await extractPages(files);
     const data = extractData(pages);
-    saveFile(data);
+    data.push(...extras);
+    const sortedData = sortByDate(data);
+    saveFile(sortedData);
     console.log(`${UNKNOWNS.length} Unknown Tickers: `, UNKNOWNS.join(', '));
 }
 
@@ -57,7 +60,7 @@ function extractData(pages) {
 
         data.push(...extractTransactions(pageTexts, date, cost, taxes));
     }
-    return sortByDate(data);
+    return data;
 }
 
 function getDate(page) {
