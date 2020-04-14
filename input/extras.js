@@ -1,6 +1,9 @@
-/* Insert your subscriptions and bonifications using
+const config = require('../config');
+
+/*
+    Insert your subscriptions and bonifications using
     name: Ticker of company
-    type: Type of transaction, as setted on application constants (default: 'Compra' or 'Venda')
+    type: Type of transaction, as setted on application config (config.BUY_STRING or config.SELL_STRING)
     quantity: Quantity
     value: Individual price
     total: Total amount, calculated by quantity * value
@@ -9,14 +12,23 @@
 */
 
 module.exports = [
-    // Exemple:
-    // {
-    //     "name": "ITSA4",
-    //     "type": "Compra",
-    //     "quantity": "100",
-    //     "value": "10,00",
-    //     "total": "1000,00",
-    //     "tax": "0,00",
-    //     "date": "07/11/1991"
-    // }
+    // Exemples:
+    {
+        "name": "XPLG13",
+        "type": config.BUY_STRING,
+        "quantity": 11,
+        "value": 0.0,
+        "total": 0.0,
+        "tax": 0.0,
+        "date": "12/09/2019"
+    },
+    {
+        "name": "TIET2",
+        "type": config.BUY_STRING,
+        "quantity": 1,
+        "value": 0.0,
+        "total": 0.0,
+        "tax": 0.0,
+        "date": "18/08/2019"
+    }
 ];
