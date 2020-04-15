@@ -1,4 +1,5 @@
 module.exports = {
+    // Fundos Imobiliários
     // "FII BB CORP": "BBRC11",
     // "FII BCIA": "BCIA11",
     // "FII BEES CRI": "BCRI11",
@@ -140,6 +141,7 @@ module.exports = {
     // "FII BB PRGII": "BBPO11",
     // "FII NOVOHORI": "NVHO11",
     // "FII PANAMBY": "PABY11",
+    // Ações
     "ALLIAR ON": "AALR3",
     "APPLE DRN": "AAPL34",
     "ABBVIE DRN": "ABBV34",
