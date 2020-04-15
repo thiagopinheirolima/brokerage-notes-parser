@@ -2,7 +2,7 @@
 Parser for brokerage notes from Clear and Rico (XP Group) brokerages
 
 ## How to use
-1- First you need to have Node.JS installed.
+1- First you need Node.JS installed.
 
 2- Execute `npm install` to install dependencies.
 
@@ -10,4 +10,4 @@ Parser for brokerage notes from Clear and Rico (XP Group) brokerages
 
 4- Execute `npm start` to run.
 
-*Output file should be at root application's directory under name of 'output.json'*
+*The output file should be at application's root directory under the name of 'output.json'*
