@@ -16,18 +16,11 @@ function sortByDate(arr) {
 };
 
 function toFloat(str) {
-    // TODO REVER ESSA FUNÇÃO
-    return toFixed(parseFloat(str.toString().replace(/\./g, '').replace(/,/g, '')) / 100);
+    return parseFloat(str.replace(/\./g, '').replace(/,/g, '.'));
 };
 
-function toFixed(str) {
-    // TODO REVER ESSA FUNÇÃO
-    return parseFloat(str.toFixed(2));
-};
-
-function removeDot(str) {
-    // TODO REVER ESSA FUNÇÃO
-    return str.replace(/\./g, '');
+function toFixed(n) {
+    return parseFloat(n.toFixed(2));
 };
 
 function trimText(str) {
@@ -39,6 +32,5 @@ module.exports = {
     sortByDate,
     toFixed,
     toFloat,
-    removeDot,
     trimText
 };

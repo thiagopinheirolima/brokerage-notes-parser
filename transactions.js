@@ -65,7 +65,6 @@ function getDate(page) {
 };
 
 function getCost(page) {
-    // TODO REVER ESSA FUNÇÃO
     const PIVOT_TEXT = 'Resumo dos Negócios';
     for (let i = 0; i < page.texts.length; i++) {
         const text = page.texts[i].text;
@@ -78,8 +77,7 @@ function getCost(page) {
 };
 
 function getTaxes(page) {
-    // TODO REVER ESSA FUNÇÃO
-    let taxes = 0;
+    let totalTaxes = 0.0;
     const CBL_STRING = 'Total CBLC';
     const VALUE_STRING = 'Valor líquido das operações';
     const BOVESPA_STRING = 'Total Bovespa / Soma';
@@ -90,36 +88,34 @@ function getTaxes(page) {
         const text = page.texts[i].text;
 
         if (text === CBL_STRING) {
-            taxes = utils.toFixed(taxes + utils.toFloat(page.texts[i - 1].text));
+            totalTaxes = utils.toFixed(totalTaxes + utils.toFloat(page.texts[i - 1].text));
         }
 
         if (text === VALUE_STRING) {
-            taxes = utils.toFixed(taxes - utils.toFloat(page.texts[i - 1].text));
-            if (taxes < 0) {
-                taxes *= -1;
+            totalTaxes = utils.toFixed(totalTaxes - utils.toFloat(page.texts[i - 1].text));
+            if (totalTaxes < 0) {
+                totalTaxes *= -1;
             }
         }
 
         if (text === BOVESPA_STRING) {
             if (page.texts[i - 1].text != ZERO_TAX)
-                taxes = utils.toFixed(taxes + utils.toFloat(page.texts[i - 1].text));
+                totalTaxes = utils.toFixed(totalTaxes + utils.toFloat(page.texts[i - 1].text));
         }
 
         if (text === COSTS_STRING) {
-            taxes = utils.toFixed(taxes + utils.toFloat(page.texts[i - 1].text));
+            totalTaxes = utils.toFixed(totalTaxes + utils.toFloat(page.texts[i - 1].text));
         }
     }
 
-    return utils.toFixed(taxes);
+    return totalTaxes;
 };
 
 function calculateTax(value, cost, tax) {
-    // TODO REVER ESSA FUNÇÃO
-    return tax == 0 ? 0 : utils.toFloat(utils.toFixed(utils.toFloat(value) / cost * tax).toString().replace('.', ','));
+    return tax == 0 ? 0 : utils.toFixed(value / cost * tax);
 };
 
 function extractTransactions(pageTexts, date, cost, taxes) {
-    // TODO REVER ESSA FUNÇÃO
     const transactions = [];
 
     let pivotIndex = 0;
@@ -139,15 +135,12 @@ function extractTransactions(pageTexts, date, cost, taxes) {
         }
 
         if ((text === DOC_BUY_END_STRING && (pageTexts[i + 1] === DOC_START_STRING || pageTexts[i + 1] === DOC_END_STRING)) || (text === DOC_SELL_END_STRING && pageTexts[pivotIndex] === DOC_SELL_STRING)) {
-            transactions.push({
-                name: getTicker(pageTexts[pivotIndex + 2]),
-                quantity: parseInt(pageTexts[i - 3]),
-                value: utils.toFloat(pageTexts[i - 2]),
-                total: utils.toFloat(pageTexts[i - 1]),
-                tax: calculateTax(pageTexts[i - 1], cost, taxes),
-                date,
-                type: pageTexts[pivotIndex] === DOC_BUY_STRING ? config.BUY_STRING : config.SELL_STRING
-            });
+            const name = getTicker(pageTexts[pivotIndex + 2]);
+            const quantity = parseInt(pageTexts[i - 3]);
+            const value = utils.toFloat(pageTexts[i - 2]);
+            const tax = calculateTax(quantity * value, cost, taxes);
+            const type = pageTexts[pivotIndex] === DOC_BUY_STRING ? config.BUY_STRING : config.SELL_STRING;
+            transactions.push({ name, date, type, quantity, value, tax });
             continue;
         }
 
@@ -177,7 +170,7 @@ async function load() {
     const pages = await extractPages(files);
     const data = extractData(pages);
     data.push(...extras);
-    return { historic: utils.sortByDate(data), unknowns };
+    return { transactions: utils.sortByDate(data), unknowns };
 };
 
 

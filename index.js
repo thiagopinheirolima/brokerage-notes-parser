@@ -1,10 +1,10 @@
 const utils = require('./utils');
-const historic = require('./historic');
+const transactions = require('./transactions');
 const wallet = require('./wallet');
 
 async function main() {
-    const data = await historic.load();
-    data.wallet = wallet.calculate(data.historic);
+    const data = await transactions.load();
+    data.wallet = wallet.calculate(data.transactions);
     utils.exportJSON(data);
 }
 
